@@ -79,9 +79,9 @@ npx prisma migrate dev
 
 Copiar código:
 
-cd backend
+cd ..projeto-faturas
 
-npm start
+npm run dev
 
 **7. Inicie o servidor frontend:**
 
