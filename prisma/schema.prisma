@@ -17,6 +17,7 @@ model Fatura {
   id                      Int      @id @default(autoincrement())
   numeroCliente           String
   mesReferencia           String
+  fileName           String
   dataVencimento          DateTime
   valorFatura            Float
   energiaQuantidadeKwh    Int

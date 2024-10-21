@@ -20,7 +20,7 @@ async function extractDataFromPDF(filePath: string) {
     const faturaDados = extrairFatura(text);
     const energiaDados = extrairEnergiaDados(text);
 
-    return saveFaturaData(faturaDados, energiaDados);
+    return saveFaturaData(faturaDados, energiaDados, filePath);
 }
 
 function extrairFatura(texto: string): { cliente: string | null, instalacao: string | null, mesReferencia: string | null, dataVencimento: string | null, valorFatura: string | null } {
@@ -89,7 +89,7 @@ interface FaturaEnergia {
     valor: string | null;
 }
 
-async function saveFaturaData(faturaDados: any, faturaEnergiaDados: FaturaEnergia[]) {
+async function saveFaturaData(faturaDados: any, faturaEnergiaDados: FaturaEnergia[], filePath : string) {
     const parseToFloat = (value: string | null): number | null => {
         return value ? parseFloat(value.replace(',', '.')) : null;
     };
@@ -136,6 +136,7 @@ async function saveFaturaData(faturaDados: any, faturaEnergiaDados: FaturaEnergi
         data: {
             numeroCliente: faturaDados.cliente,
             mesReferencia: faturaDados.mesReferencia,
+            fileName: filePath.split('/')[1],
             dataVencimento: transformarParaDateTime(faturaDados.dataVencimento) || new Date(),
             valorFatura: parseToFloat(faturaDados.valorFatura) || 0,
             energiaQuantidadeKwh: energiaQuantidadeKwh ?? 0,
